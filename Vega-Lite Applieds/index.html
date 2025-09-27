@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vega-Lite Test</title>
+  <!-- Import Vega & Vega-Lite -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <h1>My First Vega-Lite Chart</h1>
+  <div id="vis"></div>
+
+  <script>
+    const spec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "A simple bar chart with embedded data.",
+      "data": {
+        "values": [
+          {"fruit": "Durian", "count": 10},
+          {"fruit": "Mango", "count": 15},
+          {"fruit": "Rambutan", "count": 7}
+        ]
+      },
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "fruit", "type": "ordinal"},
+        "y": {"field": "count", "type": "quantitative"}
+      }
+    };
+
+    vegaEmbed('#vis', spec);
+  </script>
+</body>
+{
+"$schema": "https://vega.github.io/schema/vega-lite/v5.json"
+,
+"title": { "text": "Cheapest European Cities" },
+"data": {
+"url": "https://raw.githubusercontent.com/FIT3179/Datasets/main/city_
+daily_
+cost.csv"
+},
+"mark": "bar"
+,
+"encoding": {
+"x": { "field": "daily_
+cost"
+,
+"type": "quantitative" },
+"y": { "field": "city"
+,
+"type": "nominal" }
+}
+}
+1 {
+2 "$schema": "https://vega.github.i
+</html>
