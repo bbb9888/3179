@@ -1,0 +1,67 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 650,
+  "title": {
+    "text": "2023 Palm Oil Production by State in Malaysia",
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "malaysia.json",
+    "format": {
+      "type": "topojson",
+      "feature": "Malaysia_ADM1_simplified.simplified"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "properties.shapeName",
+      "from": {
+        "data": {
+          "url": "palm_oil_production_2023.csv"
+        },
+        "key": "State",
+        "fields": ["Total_Production", "Planted_Area", "Production_Density"]
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator"
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "black",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "color": {
+      "field": "Production_Density",
+      "type": "quantitative",
+      "title": "Production Density (Tonnes/Ha)",
+      "scale": {
+        "scheme": "viridis",
+        "type": "sequential",
+        "reverse": true
+      },
+      "condition": {
+        "test": "datum.Production_Density == null || datum.Production_Density == ''",
+        "value": "lightgray"
+      }
+    },
+    "tooltip": [
+      {"field": "properties.shapeName", "title": "State"},
+      {"field": "Total_Production", "title": "Total Production (Tonnes)", "format": ","},
+      {"field": "Planted_Area", "title": "Planted Area (Ha)", "format": ","},
+      {"field": "Production_Density", "title": "Prod. Density (Tonnes/Ha)", "format": ".2f"}
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": "transparent",
+      "fill": "skyblue"
+    },
+    "title": {
+      "anchor": "middle"
+    }
+  }
+}
