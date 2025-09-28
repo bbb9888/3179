@@ -7,7 +7,7 @@
     "anchor": "middle"
   },
   "data": {
-    "url": "malaysia.json",
+    "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/W9HW/malaysia.json",
     "format": {
       "type": "topojson",
       "feature": "Malaysia_ADM1_simplified.simplified"
@@ -18,7 +18,7 @@
       "lookup": "properties.shapeName",
       "from": {
         "data": {
-          "url": "palm_oil_production_2023.csv"
+          "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/W9HW/palm_oil_production_2023.csv"
         },
         "key": "State",
         "fields": ["Total_Production", "Planted_Area", "Production_Density"]
