@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 650,
+  "title": {
+    "text": "2023 Palm Oil Production by State in Malaysia",
+    "anchor": "middle"
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [110.0, 3], 
+    "scale": 2000,
+    "translate": [375, 325]
+  },
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "data": {"graticule": {"step": [5, 5]}},
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#888888",
+        "strokeWidth": 0.3,
+        "opacity": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/W9HW/malaysia.json",
+        "format": {
+          "type": "topojson",
+          "feature": "Malaysia_ADM1_simplified.simplified"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.shapeName",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/W9HW/palm_oil_production_2023.csv"
+            },
+            "key": "State",
+            "fields": ["Total_Production", "Planted_Area", "Production_Density"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "Production_Density",
+          "type": "quantitative",
+          "title": "Production Density (Tonnes per Hectare)",
+          "scale": {
+            "scheme": "viridis",
+            "type": "sequential",
+            "reverse": true
+          },
+          "legend": {
+            "orient": "right",
+            "titleLimit": 300,
+            "labelLimit": 200,
+            "fillColor": "white",
+            "padding": 5
+          },
+          "condition": {
+            "test": "datum.Production_Density == null || datum.Production_Density == ''",
+            "value": "lightgray"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.shapeName", "title": "State"},
+          {"field": "Total_Production", "title": "Total Production (Tonnes)", "format": ","},
+          {"field": "Planted_Area", "title": "Planted Area (Ha)", "format": ","},
+          {"field": "Production_Density", "title": "Prod. Density (Tonnes/Ha)", "format": ".2f"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "legend": {
+      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "fillColor": "white",
+      "strokeColor": "lightgray"
+    },
+    "title": {"anchor": "middle"}
+  }
+}

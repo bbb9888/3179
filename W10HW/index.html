@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malaysia's Palm Oil Economy (2023)</title>
+
+  <!-- Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    h1 {
+      margin: 24px 0 16px 0;
+      text-align: center;
+      font-size: 26px;
+      color: #222;
+    }
+    #map-container, #linechart-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+    #map, #linechart {
+      width: 100%;
+      height: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    .source-container {
+      margin: 20px 0 30px 0;
+      font-size: 11pt;
+      color: #666;
+      text-align: center;
+    }
+    .source-line {
+      margin-top: 5px;
+      font-size: 10pt;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Page Title -->
+  <h1>Malaysia's Palm Oil Economy (2023)</h1>
+
+  <!-- Map -->
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <!-- 🔸 NEW: Line Chart -->
+  <div id="linechart-container">
+    <div id="linechart"></div>
+  </div>
+  
+  <!-- Sources -->
+  <div class="source-container">
+    <div>Source: Malaysia Palm Oil Board (Jan–Dec 2023)</div>
+    <div class="source-line">A visualisation by: Seow Le Onn 34076662</div>
+  </div>
+
+  <!-- Vega Embed -->
+  <script>
+    vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" })
+      .catch(console.error);
+
+    // 🔸 Embed your line chart JSON file here
+    vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" })
+      .catch(console.error);
+  </script>
+</body>
+</html>
