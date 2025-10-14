@@ -1,0 +1,110 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 500,
+  "title": {
+    "text": "2023 Global Imports of Malaysian Palm Oil",
+    "anchor": "middle",
+    "fontSize": 18
+  },
+  "projection": {
+    "type": "equalEarth"
+  },
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#eaf6ff"}
+    },
+    {
+      "data": {"graticule": {"step": [20, 20]}},
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#999999",
+        "strokeWidth": 0.3,
+        "opacity": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/world_map.json",
+        "format": {
+          "type": "topojson",
+          "feature": "Country"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/palm_oil_exports_2023.csv"
+            },
+            "key": "Country",
+            "fields": [
+              "Trade Value (USD)",
+              "Population (2023)",
+              "Quantity (kg)",
+              "Imports Per Capita (kg/person)"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.3
+      },
+      "encoding": {
+        "color": {
+          "field": "Imports Per Capita (kg/person)",
+          "type": "quantitative",
+          "title": "Imports Per Capita (kg/person)",
+          "scale": {
+            "scheme": "yellowgreenblue",
+            "type": "sequential"
+          },
+          "legend": {
+            "orient": "right",
+            "titleLimit": 250,
+            "labelLimit": 200,
+            "fillColor": "white",
+            "padding": 5
+          },
+          "condition": {
+            "test": "isValid(datum['Imports Per Capita (kg/person)']) == false",
+            "value": "lightgray"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.name", "title": "Country"},
+          {
+            "field": "Trade Value (USD)",
+            "title": "Trade Value (USD)",
+            "format": ","
+          },
+          {
+            "field": "Population (2023)",
+            "title": "Population (2023)",
+            "format": ","
+          },
+          {"field": "Quantity (kg)", "title": "Quantity (kg)", "format": ","},
+          {
+            "field": "Imports Per Capita (kg/person)",
+            "title": "Imports Per Capita (kg/person)",
+            "format": ".2f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "legend": {
+      "titleFontSize": 12,
+      "labelFontSize": 11,
+      "fillColor": "white",
+      "strokeColor": "lightgray"
+    },
+    "title": {"anchor": "middle"}
+  }
+}

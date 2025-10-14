@@ -28,13 +28,13 @@
       font-size: 26px;
       color: #222;
     }
-    #map-container, #linechart-container {
+    #map-container, #linechart-container, #worldmap-container {
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
       padding: 0 10px;
     }
-    #map, #linechart {
+    #map, #linechart, #worldmap {
       width: 100%;
       height: auto;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -59,14 +59,19 @@
   <!-- Page Title -->
   <h1>Malaysia's Palm Oil Economy (2023)</h1>
 
-  <!-- Map -->
+  <!-- Malaysia Map -->
   <div id="map-container">
     <div id="map"></div>
   </div>
 
-  <!-- 🔸 NEW: Line Chart -->
+  <!-- Line Chart -->
   <div id="linechart-container">
     <div id="linechart"></div>
+  </div>
+
+  <!-- 🌍 World Export Map -->
+  <div id="worldmap-container">
+    <div id="worldmap"></div>
   </div>
   
   <!-- Sources -->
@@ -77,11 +82,16 @@
 
   <!-- Vega Embed -->
   <script>
+    // Malaysia Map
     vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" })
       .catch(console.error);
 
-    // 🔸 Embed your line chart JSON file here
+    // Line Chart
     vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" })
+      .catch(console.error);
+
+    // 🌍 World Exports Choropleth
+    vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" })
       .catch(console.error);
   </script>
 </body>
