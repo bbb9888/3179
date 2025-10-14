@@ -1,0 +1,169 @@
+﻿State,Month,Production
+Johor,1,202788
+Johor,2,191909
+Johor,3,176530
+Johor,4,168086
+Johor,5,233406
+Johor,6,224713
+Johor,7,252786
+Johor,8,274564
+Johor,9,282415
+Johor,10,306030
+Johor,11,292072
+Johor,12,253052
+Kedah,1,15428
+Kedah,2,17235
+Kedah,3,18635
+Kedah,4,13571
+Kedah,5,15008
+Kedah,6,14932
+Kedah,7,16635
+Kedah,8,21003
+Kedah,9,20835
+Kedah,10,21533
+Kedah,11,19416
+Kedah,12,19321
+Kelantan,1,23495
+Kelantan,2,22167
+Kelantan,3,23966
+Kelantan,4,22484
+Kelantan,5,28062
+Kelantan,6,23844
+Kelantan,7,28736
+Kelantan,8,32589
+Kelantan,9,34301
+Kelantan,10,37594
+Kelantan,11,32605
+Kelantan,12,26759
+Negeri Sembilan,1,46911
+Negeri Sembilan,2,44285
+Negeri Sembilan,3,42697
+Negeri Sembilan,4,39408
+Negeri Sembilan,5,46452
+Negeri Sembilan,6,44497
+Negeri Sembilan,7,52128
+Negeri Sembilan,8,59365
+Negeri Sembilan,9,62570
+Negeri Sembilan,10,65314
+Negeri Sembilan,11,61500
+Negeri Sembilan,12,59074
+Pahang,1,217062
+Pahang,2,193307
+Pahang,3,193585
+Pahang,4,177178
+Pahang,5,220373
+Pahang,6,203631
+Pahang,7,233545
+Pahang,8,261442
+Pahang,9,281916
+Pahang,10,314439
+Pahang,11,291296
+Pahang,12,240794
+Perak,1,131448
+Perak,2,133593
+Perak,3,134497
+Perak,4,120260
+Perak,5,161170
+Perak,6,152134
+Perak,7,177347
+Perak,8,183257
+Perak,9,177013
+Perak,10,173377
+Perak,11,155100
+Perak,12,143239
+Selangor,1,34737
+Selangor,2,36227
+Selangor,3,40967
+Selangor,4,35506
+Selangor,5,45095
+Selangor,6,39461
+Selangor,7,43751
+Selangor,8,45069
+Selangor,9,44700
+Selangor,10,45445
+Selangor,11,42492
+Selangor,12,39061
+Terengganu,1,24791
+Terengganu,2,24119
+Terengganu,3,23452
+Terengganu,4,23103
+Terengganu,5,32766
+Terengganu,6,29009
+Terengganu,7,37280
+Terengganu,8,43642
+Terengganu,9,48589
+Terengganu,10,50036
+Terengganu,11,43829
+Terengganu,12,32940
+Other States,1,14426
+Other States,2,16116
+Other States,3,15011
+Other States,4,12685
+Other States,5,16490
+Other States,6,17074
+Other States,7,20166
+Other States,8,21980
+Other States,9,21401
+Other States,10,21752
+Other States,11,20904
+Other States,12,17359
+West Malaysia,1,711086
+West Malaysia,2,678958
+West Malaysia,3,669340
+West Malaysia,4,612281
+West Malaysia,5,798822
+West Malaysia,6,749295
+West Malaysia,7,862374
+West Malaysia,8,942911
+West Malaysia,9,973740
+West Malaysia,10,1035520
+West Malaysia,11,959214
+West Malaysia,12,831599
+Sabah,1,367394
+Sabah,2,325873
+Sabah,3,353770
+Sabah,4,313984
+Sabah,5,378302
+Sabah,6,356066
+Sabah,7,351695
+Sabah,8,386107
+Sabah,9,418052
+Sabah,10,458707
+Sabah,11,429419
+Sabah,12,368091
+Sarawak,1,301930
+Sarawak,2,248742
+Sarawak,3,265244
+Sarawak,4,268294
+Sarawak,5,340510
+Sarawak,6,342336
+Sarawak,7,395858
+Sarawak,8,424454
+Sarawak,9,437642
+Sarawak,10,442997
+Sarawak,11,400237
+Sarawak,12,351106
+East Malaysia,1,669324
+East Malaysia,2,574615
+East Malaysia,3,619014
+East Malaysia,4,582278
+East Malaysia,5,718812
+East Malaysia,6,698402
+East Malaysia,7,747553
+East Malaysia,8,810561
+East Malaysia,9,855694
+East Malaysia,10,901704
+East Malaysia,11,829656
+East Malaysia,12,719197
+All States,1,1380410
+All States,2,1253573
+All States,3,1288354
+All States,4,1194559
+All States,5,1517634
+All States,6,1447697
+All States,7,1609927
+All States,8,1753472
+All States,9,1829434
+All States,10,1937224
+All States,11,1788870
+All States,12,1550796

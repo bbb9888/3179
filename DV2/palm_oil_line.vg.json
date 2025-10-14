@@ -1,0 +1,154 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 750,
+  "height": 400,
+  "title": {
+    "text": "2023 Monthly Palm Oil Production by State",
+    "anchor": "middle"
+  },
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/W10HW/palm_oil_production_states_2023.csv"
+  },
+  "params": [
+    {
+      "name": "selected_state",
+      "value": "All States",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All States",
+          "Johor",
+          "Kedah",
+          "Kelantan",
+          "Negeri Sembilan",
+          "Pahang",
+          "Perak",
+          "Selangor",
+          "Terengganu",
+          "Other States",
+          "West Malaysia",
+          "Sabah",
+          "Sarawak",
+          "East Malaysia"
+        ],
+        "name": "Select State: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "calculate": "toNumber(replace(datum.Production, ',', ''))",
+      "as": "ProductionValue"
+    },
+    {
+      "calculate": "toNumber(datum.Month)",
+      "as": "MonthNum"
+    },
+    {
+      "calculate": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][toNumber(datum.Month)-1]",
+      "as": "MonthName"
+    },
+    {
+      "filter": "datum.State == selected_state"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "color": "#c58c35",
+        "opacity": 0.22
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "interpolate": "monotone",
+        "strokeWidth": 3,
+        "color": "#c58c35",
+        "point": {
+          "filled": true,
+          "fill": "#99523c",
+          "stroke": "#99523c"
+        }
+      }
+    },
+    {
+      "description": "Vertical rule for October",
+      "data": {"values": [{"MonthNum": 10}]},
+      "mark": {
+        "type": "rule",
+        "stroke": "#B71C1C",
+        "strokeDash": [4, 4],
+        "strokeWidth": 1.5,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "x": {"field": "MonthNum", "type": "quantitative"}
+      }
+    },
+    {
+      "description": "Dynamic flag annotation at October point",
+      "transform": [
+        {"filter": "datum.MonthNum == 10"},
+        {"filter": "datum.State == selected_state"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "dy": -5,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#B71C1C"
+      },
+      "encoding": {
+        "x": {"field": "MonthNum", "type": "quantitative"},
+        "y": {"field": "ProductionValue", "type": "quantitative"},
+        "text": {"value": "Peak Seasonal Yield"}
+      }
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "MonthNum",
+      "type": "quantitative",
+      "title": "Month",
+      "axis": {
+        "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]",
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      },
+      "scale": {"zero": false, "nice": false}
+    },
+    "y": {
+      "field": "ProductionValue",
+      "type": "quantitative",
+      "title": "Production (Tonnes)",
+      "axis": {
+        "grid": true,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "format": ",.0f"
+      },
+      "scale": {"zero": true, "nice": true}
+    },
+    "tooltip": [
+      {"field": "State", "title": "State"},
+      {"field": "MonthName", "title": "Month"},
+      {"field": "ProductionValue", "title": "Production (Tonnes)", "format": ","}
+    ]
+  },
+  "config": {
+    "background": "white",
+    "view": {"stroke": "transparent"},
+    "title": {"fontSize": 16, "anchor": "middle"}
+  }
+}
