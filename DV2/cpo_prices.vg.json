@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A layered line chart comparing CPO monthly prices for 2022 and 2023.",
+  "title": {
+    "text": "Crude Palm Oil (CPO) Monthly Price Comparison",
+    "subtitle": "Price (RM/MT) for 2022 vs. 2023",
+    "anchor": "middle"
+  },
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/cpo_monthly_prices.csv"
+  },
+  "transform": [
+    {
+      "fold": ["2022 (RM/MT)", "2023 (RM/MT)"],
+      "as": ["Year", "Price"]
+    },
+    {
+      "calculate": "substring(datum.Year, 0, 4)",
+      "as": "Year"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {"filled": true, "size": 60},
+    "strokeWidth": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "nominal",
+      "title": "Month",
+      "axis": {"labelAngle": 0},
+      "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    },
+    "y": {
+      "field": "Price",
+      "type": "quantitative",
+      "title": "Price (RM/MT)",
+      "axis": {"format": ",.0f"}
+    },
+    "color": {
+      "field": "Year",
+      "type": "nominal",
+      "title": "Year",
+      "scale": {
+        "domain": ["2022", "2023"],
+        "range": ["#ef4444", "#3b82f6"]
+      }
+    },
+    "tooltip": [
+      {"field": "Year", "type": "nominal"},
+      {"field": "Month", "type": "nominal"},
+      {"field": "Price", "type": "quantitative", "format": ",.0f", "title": "Price (RM/MT)"}
+    ]
+  },
+  "config": {"view": {"stroke": null}}
+}

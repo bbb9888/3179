@@ -22,31 +22,44 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
+
     h1 {
       margin: 24px 0 16px 0;
       text-align: center;
       font-size: 26px;
       color: #222;
     }
-    #map-container, #linechart-container, #worldmap-container {
+
+    /* Shared container style for all charts */
+    #map-container, 
+    #linechart-container, 
+    #cpochart-container, 
+    #worldmap-container {
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
       padding: 0 10px;
     }
-    #map, #linechart, #worldmap {
+
+    /* Shared chart box style */
+    #map, 
+    #linechart, 
+    #cpochart, 
+    #worldmap {
       width: 100%;
       height: auto;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       margin-top: 20px;
     }
+
     .source-container {
       margin: 20px 0 30px 0;
       font-size: 11pt;
       color: #666;
       text-align: center;
     }
+
     .source-line {
       margin-top: 5px;
       font-size: 10pt;
@@ -59,14 +72,19 @@
   <!-- Page Title -->
   <h1>Malaysia's Palm Oil Economy (2023)</h1>
 
-  <!-- Malaysia Map -->
+  <!-- 🗺️ Malaysia Map -->
   <div id="map-container">
     <div id="map"></div>
   </div>
 
-  <!-- Line Chart -->
+  <!-- 📈 Palm Oil Line Chart (existing one) -->
   <div id="linechart-container">
     <div id="linechart"></div>
+  </div>
+
+  <!-- 🟢 CPO Monthly Price Line Chart (new) -->
+  <div id="cpochart-container">
+    <div id="cpochart"></div>
   </div>
 
   <!-- 🌍 World Export Map -->
@@ -80,19 +98,24 @@
     <div class="source-line">A visualisation by: Seow Le Onn 34076662</div>
   </div>
 
-  <!-- Vega Embed -->
+  <!-- Vega Embed Scripts -->
   <script>
-    // Malaysia Map
+    // 🗺️ Malaysia Map
     vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" })
       .catch(console.error);
 
-    // Line Chart
+    // 📈 Palm Oil Line Chart (existing one)
     vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" })
       .catch(console.error);
 
-    // 🌍 World Exports Choropleth
+    // 🟢 CPO Monthly Price Line Chart (new)
+    vegaEmbed("#cpochart", "cpo_prices.vg.json", { actions: true, renderer: "svg" })
+      .catch(console.error);
+
+    // 🌍 World Exports Choropleth Map
     vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" })
       .catch(console.error);
   </script>
+
 </body>
 </html>
