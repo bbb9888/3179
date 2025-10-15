@@ -3,7 +3,7 @@
   "width": 900,
   "height": 500,
   "title": {
-    "text": "2023 Global Imports of Malaysian Palm Oil (Per Capita)",
+    "text": "2023 Global Imports of Malaysian Palm Oil (Per Capita in MT)",
     "anchor": "middle",
     "fontSize": 18
   },
@@ -49,22 +49,25 @@
           },
           "transform": [
             {
-              "lookup": "properties.ADMIN",
+              "calculate": "datum.properties.ADMIN == 'United States of America' ? 'U.S.A' : datum.properties.ADMIN == 'Democratic Republic of the Congo' ? 'CONGO, DEMOCRATIC REP. OF THE' : datum.properties.ADMIN == 'Cote d\\'Ivoire' ? 'COTE D\\'IVOIRE' : datum.properties.ADMIN == 'Czech Republic' ? 'CZECH' : upper(datum.properties.ADMIN)",
+              "as": "lookup_key"
+            },
+            {
+              "lookup": "lookup_key",
               "from": {
                 "data": {
                   "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/palm_oil_exports_2023.csv"
                 },
                 "key": "Country",
                 "fields": [
-                  "Trade Value (USD)",
+                  "Quantity (MT)",
                   "Population (2023)",
-                  "Quantity (kg)",
-                  "Imports Per Capita (kg/person)"
+                  "Imports Per Capita (MT/person)"
                 ]
               }
             },
             {
-              "filter": "datum['Imports Per Capita (kg/person)'] != null"
+              "filter": "datum['Imports Per Capita (MT/person)'] != null"
             }
           ],
           "mark": {
@@ -74,13 +77,13 @@
           },
           "encoding": {
             "color": {
-              "field": "Imports Per Capita (kg/person)",
+              "field": "Imports Per Capita (MT/person)",
               "type": "quantitative",
-              "title": "Imports Per Capita (kg/person)",
+              "title": "Imports Per Capita (MT/person)",
               "scale": {
                 "type": "linear",
                 "scheme": "yellowgreenblue",
-                "domain": [0, 18]
+                "domain": [0, 0.05]
               },
               "legend": {
                 "orient": "right",
@@ -93,8 +96,8 @@
             "tooltip": [
               {"field": "properties.ADMIN", "title": "Country"},
               {
-                "field": "Trade Value (USD)",
-                "title": "Trade Value (USD)",
+                "field": "Quantity (MT)",
+                "title": "Quantity (MT)",
                 "format": ","
               },
               {
@@ -102,11 +105,10 @@
                 "title": "Population (2023)",
                 "format": ","
               },
-              {"field": "Quantity (kg)", "title": "Quantity (kg)", "format": ","},
               {
-                "field": "Imports Per Capita (kg/person)",
-                "title": "Imports Per Capita (kg/person)",
-                "format": ".2f"
+                "field": "Imports Per Capita (MT/person)",
+                "title": "Imports Per Capita (MT/person)",
+                "format": ".6f"
               }
             ]
           }
