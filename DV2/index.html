@@ -11,110 +11,248 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
   <style>
+    /* 1. Global Reset & Typography */
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      background: white;
+      /* Using Inter as the primary font for body text/data */
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: #f4f4f7; /* Light gray background */
+      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      box-sizing: border-box;
     }
-
-    h1 {
-      margin: 24px 0 16px 0;
-      text-align: center;
-      font-size: 26px;
-      color: #222;
-    }
-
-    /* Shared container style for all charts */
-    #map-container, 
-    #linechart-container, 
-    #cpochart-container, 
-    #worldmap-container {
+    
+    /* 2. Page Title Section - Matching Image 2 Style */
+    .header-container {
       width: 100%;
       max-width: 800px;
-      margin: 0 auto;
-      padding: 0 10px;
+      margin: 40px auto 20px auto;
+      text-align: center;
+      padding: 0 20px;
     }
 
-    /* Shared chart box style */
-    #map, 
-    #linechart, 
-    #cpochart, 
-    #worldmap {
+    .main-title {
+      /* Applying a serif font to the main title */
+      font-family: Georgia, 'Times New Roman', Times, serif; 
+      font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive sizing */
+      font-weight: 700;
+      color: #00570c; /* Deep red color from the image */
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .sub-title {
+      font-size: clamp(1rem, 2vw, 1.25rem); /* Responsive sizing */
+      font-weight: 400;
+      color: #444;
+      margin: 10px 0 25px 0;
+      line-height: 1.4;
+    }
+
+    .header-divider {
+      width: 80%;
+      max-width: 500px;
+      height: 1px;
+      background-color: #ccc;
+      margin: 20px auto 40px auto;
+    }
+
+    /* 3. Chart Section Layout - Centered and Clean */
+    .chart-section {
+      display: flex;
+      flex-direction: column; /* Stack text on top of chart */
+      align-items: center;
+      width: 90%;
+      max-width: 800px;
+      margin: 40px auto; /* Increased vertical margin */
+      padding: 0; /* Removed padding */
+      /* Removed box-shadow and background to make it look clean */
+    }
+
+    .chart-text-container {
       width: 100%;
-      height: auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      margin-top: 20px;
+      text-align: left;
+      margin-bottom: 20px;
     }
 
+    .section-title-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    /* Colored Rectangle Icon */
+    .title-icon {
+      width: 6px;
+      height: 24px;
+      background-color: #00570c; /* Darker green accent color */
+      margin-right: 12px;
+      flex-shrink: 0; /* Prevent it from shrinking */
+    }
+
+    .section-title {
+      /* Applying serif font only to the section title */
+      font-family: Georgia, 'Times New Roman', Times, serif; 
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin: 0;
+    }
+
+    /* Descriptive text styling */
+    .description-list {
+      list-style: none;
+      padding-left: 18px; /* Alignment with title block */
+      margin-top: 15px;
+      margin-bottom: 0;
+    }
+
+    .description-list li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+      font-size: 15px;
+      color: #555;
+    }
+
+    /* Crucial: Enforce max 10 words per line aesthetic */
+    .description-list li:first-child {
+        max-width: 450px; 
+    }
+    .description-list li:nth-child(2) {
+        max-width: 550px;
+    }
+    .description-list li:nth-child(3) {
+        max-width: 400px;
+    }
+
+    /* Chart container */
+    .chart {
+      width: 100%;
+      min-height: 350px; /* Ensure space for chart */
+    }
+
+    /* 4. Footer */
     .source-container {
-      margin: 20px 0 30px 0;
-      font-size: 11pt;
+      margin: 40px 0 30px 0;
+      padding: 0 20px;
+      font-size: 10pt;
       color: #666;
       text-align: center;
+      width: 100%;
     }
-
     .source-line {
       margin-top: 5px;
-      font-size: 10pt;
+      font-size: 9pt;
       color: #999;
     }
   </style>
 </head>
 <body>
-  
-  <!-- Page Title -->
-  <h1>Malaysia's Palm Oil Economy (2023)</h1>
+
+  <!-- 🌴 Page Title Section -->
+  <div class="header-container">
+    <div class="main-title">Malaysia's Palm Oil Economy</div>
+    <div class="sub-title">Exploring Production, Prices, and Development in 2023</div>
+  </div>
+  <div class="header-divider"></div>
 
   <!-- 🗺️ Malaysia Map -->
-  <div id="map-container">
-    <div id="map"></div>
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Palm Oil Distribution by State</div>
+      </div>
+      <ul class="description-list">
+        <li>- Shows the 2023 palm oil production by each Malaysian state</li>
+        <li>- Highlights key production regions in Sabah and Sarawak</li>
+      </ul>
+    </div>
+    <div class="chart" id="map"></div>
   </div>
 
-  <!-- 📈 Palm Oil Line Chart (existing one) -->
-  <div id="linechart-container">
-    <div id="linechart"></div>
+  <!-- 📈 Monthly Palm Oil Production Line Chart -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Monthly Palm Oil Production</div>
+      </div>
+      <ul class="description-list">
+        <li>- Visualises seasonal trends and harvest cycles</li>
+        <li>- Shows production peaks during mid-year periods</li>
+      </ul>
+    </div>
+    <div class="chart" id="linechart"></div>
   </div>
 
-  <!-- 🟢 CPO Monthly Price Line Chart (new) -->
-  <div id="cpochart-container">
-    <div id="cpochart"></div>
+  <!-- 🟢 CPO Price Line Chart -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Crude Palm Oil (CPO) Price Trends</div>
+      </div>
+      <ul class="description-list">
+        <li>- Tracks CPO market price fluctuations throughout 2023</li>
+        <li>- Correlates price fluctuations with export demands</li>
+      </ul>
+    </div>
+    <div class="chart" id="cpochart"></div>
   </div>
 
-  <!-- 🌍 World Export Map -->
-  <div id="worldmap-container">
-    <div id="worldmap"></div>
+  <!-- 🌾 Plantation Maturity Stacked Bar Chart (Your latest request) -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Plantation Maturity by State</div>
+      </div>
+      <ul class="description-list">
+        <li>- Compares matured vs immatured oil palm areas</li>
+        <li>- Shows potential for future yield expansion</li>
+      </ul>
+    </div>
+    <div class="chart" id="maturitychart"></div>
   </div>
-  
-  <!-- Sources -->
+
+  <!-- 🌍 World Exports Map -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Global Exports of Malaysian Palm Oil</div>
+      </div>
+      <ul class="description-list">
+        <li>- Shows major importers of Malaysian palm oil worldwide</li>
+        <li>- Highlights dominant trade relations in Asia and Europe</li>
+      </ul>
+    </div>
+    <div class="chart" id="worldmap"></div>
+  </div>
+
+  <!-- Footer -->
   <div class="source-container">
     <div>Source: Malaysia Palm Oil Board (MPOB), Malaysia Palm Oil Council (MPOC)</div>
     <div class="source-line">A visualisation by: Seow Le Onn 34076662</div>
   </div>
 
-  <!-- Vega Embed Scripts -->
+  <!-- Vega Embed -->
   <script>
-    // 🗺️ Malaysia Map
-    vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" })
-      .catch(console.error);
+    function initializeCharts() {
+      // The assumption here is that all the Vega-Lite JSON files exist and are correctly linked.
+      vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading map:", e));
+      vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading linechart:", e));
+      vegaEmbed("#cpochart", "cpo_prices.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading cpochart:", e));
+      // Note: If you want to use the JSON created earlier (palm_maturity_chart.vg.json), you'll need to update the file path here:
+      // vegaEmbed("#maturitychart", "palm_maturity_chart.vg.json", { actions: false, renderer: "svg" }).catch(e => console.error("Error loading maturitychart:", e));
+      vegaEmbed("#maturitychart", "stacked_area_maturity.vg.json", { true: false, renderer: "svg" }).catch(e => console.error("Error loading maturitychart:", e));
+      vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading worldmap:", e));
+    }
 
-    // 📈 Palm Oil Line Chart (existing one)
-    vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" })
-      .catch(console.error);
-
-    // 🟢 CPO Monthly Price Line Chart (new)
-    vegaEmbed("#cpochart", "cpo_prices.vg.json", { actions: true, renderer: "svg" })
-      .catch(console.error);
-
-    // 🌍 World Exports Choropleth Map
-    vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" })
-      .catch(console.error);
+    document.addEventListener("DOMContentLoaded", initializeCharts);
   </script>
 
 </body>
