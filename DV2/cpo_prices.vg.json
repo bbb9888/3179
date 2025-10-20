@@ -1,6 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A layered line chart comparing CPO monthly prices for 2022 and 2023.",
+  "background": "transparent",
   "title": {
     "text": "Crude Palm Oil (CPO) Monthly Price Comparison",
     "subtitle": "Price (RM/MT) for 2022 vs. 2023",

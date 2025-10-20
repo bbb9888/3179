@@ -2,23 +2,49 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 900,
   "height": 500,
+  "background": "transparent",
   "title": {
     "text": "2023 Global Imports of Malaysian Palm Oil (Per Capita in MT)",
     "anchor": "middle",
     "fontSize": 18
   },
-  "projection": {"type": "equalEarth"},
+
+  "params": [
+    {
+      "name": "MapCenter",
+      "value": "World",
+      "bind": {
+        "input": "select",
+        "options": ["World", "Africa", "Asia", "Europe", "South America"],
+        "name": "View Region: "
+      }
+    }
+  ],
+
+  "projection": {
+    "type": "equalEarth",
+    "center": {
+      "expr": "MapCenter == 'Africa' ? [20, 0] : MapCenter == 'Asia' ? [90, 30] : MapCenter == 'Europe' ? [10, 50] : MapCenter == 'South America' ? [-60, -20] : [0, 0]"
+    },
+    "scale": {
+      "expr": "MapCenter == 'Africa' ? 180 : MapCenter == 'Asia' ? 220 : MapCenter == 'Europe' ? 250 : MapCenter == 'South America' ? 230 : 160"
+    }
+  },
+
   "layer": [
     {
       "data": {"sphere": true},
-      "mark": {"type": "geoshape", "fill": "#eaf6ff"}
+      "mark": {
+        "type": "geoshape",
+        "fill": "#bde0fe"
+      }
     },
     {
       "data": {"graticule": {"step": [20, 20]}},
       "mark": {
         "type": "geoshape",
-        "stroke": "#999999",
-        "strokeWidth": 0.3,
+        "stroke": "#ffffff",
+        "strokeWidth": 0.4,
         "opacity": 0.5
       }
     },
@@ -35,7 +61,7 @@
           "mark": {
             "type": "geoshape",
             "fill": "lightgray",
-            "stroke": "black",
+            "stroke": "#222",
             "strokeWidth": 0.3
           }
         },
@@ -65,9 +91,6 @@
                   "Imports Per Capita (MT/person)"
                 ]
               }
-            },
-            {
-              "filter": "datum['Imports Per Capita (MT/person)'] != null"
             }
           ],
           "mark": {
@@ -83,10 +106,11 @@
               "scale": {
                 "type": "linear",
                 "scheme": "yellowgreenblue",
-                "domain": [0, 0.05]
+                "domain": [0, 0.02]
               },
               "legend": {
-                "orient": "right",
+                "orient": "bottom",
+                "direction": "horizontal",
                 "titleLimit": 250,
                 "labelLimit": 200,
                 "fillColor": "white",
@@ -116,8 +140,12 @@
       ]
     }
   ],
+
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent",
+      "fill": "transparent"
+    },
     "legend": {
       "titleFontSize": 12,
       "labelFontSize": 11,

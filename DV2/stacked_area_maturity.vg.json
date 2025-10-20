@@ -1,6 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A stacked bar chart comparing Matured vs. Immature CPO area by individual state, ranked by total area.",
+  "background": "transparent",
   "title": {
     "text": "CPO Plantation Area: Matured vs. Immature Status",
     "subtitle": "Area (Hectares) by State, excluding regional totals",

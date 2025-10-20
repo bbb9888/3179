@@ -1,0 +1,65 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Two synchronized bar charts (Tonnes and RM Million) displayed side-by-side, sharing a common Y-axis for product comparison, resolving the scale difference issue.",
+  "background": "transparent",
+  "title": {
+    "text": "Volume (Tonnes) vs. Revenue (RM Million) by Product",
+    "subtitle": "Analysis of Malaysian Palm Oil Product Exports (Two Independent Scales)",
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/palm_oil_product.csv"
+  },
+  "spacing": 20,
+  "hconcat": [
+    {
+      "width": 350,
+      "mark": {"type": "bar", "color": "#00570c"},
+      "encoding": {
+        "y": {
+          "field": "PRODUCT",
+          "type": "nominal",
+          "title": "Product Type",
+          "sort": {"field": "REVENUE_RM_Mil", "op": "sum", "order": "descending"}
+        },
+        "x": {
+          "field": "UNIT_Tonnes",
+          "type": "quantitative",
+          "title": "Export Volume (Tonnes)",
+          "axis": {"format": "s"}
+        },
+        "tooltip": [
+          {"field": "PRODUCT", "title": "Product"},
+          {"field": "UNIT_Tonnes", "title": "Volume (Tonnes)", "format": ",.0f"}
+        ]
+      }
+    },
+    {
+      "width": 350,
+      "mark": {"type": "bar", "color": "#444444"},
+      "encoding": {
+        "y": {
+          "field": "PRODUCT",
+          "type": "nominal",
+          "title": null,
+          "axis": null, 
+          "sort": {"field": "REVENUE_RM_Mil", "op": "sum", "order": "descending"}
+        },
+        "x": {
+          "field": "REVENUE_RM_Mil",
+          "type": "quantitative",
+          "title": "Export Revenue (RM Mil)",
+          "axis": {"format": "s"}
+        },
+        "tooltip": [
+          {"field": "PRODUCT", "title": "Product"},
+          {"field": "REVENUE_RM_Mil", "title": "Revenue (RM Mil)", "format": ",.0f"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "title": {"anchor": "start", "fontSize": 14}
+  }
+}

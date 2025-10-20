@@ -41,6 +41,8 @@
       color: #00570c; /* Deep red color from the image */
       margin: 0;
       line-height: 1.1;
+      /* FIX: Force title onto a single line */
+      white-space: nowrap; 
     }
 
     .sub-title {
@@ -217,6 +219,21 @@
     </div>
     <div class="chart" id="maturitychart"></div>
   </div>
+  
+  <!-- 📊 NEW: Product Export Dual Bar Chart -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Product Export Volume vs. Revenue</div>
+      </div>
+      <ul class="description-list">
+        <li>- Directly compares export tonnage and revenue contribution per product.</li>
+        <li>- Highlights high-value vs. high-volume products within the economy.</li>
+      </ul>
+    </div>
+    <div class="chart" id="productchart"></div>
+  </div>
 
   <!-- 🌍 World Exports Map -->
   <div class="chart-section">
@@ -246,9 +263,11 @@
       vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading map:", e));
       vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading linechart:", e));
       vegaEmbed("#cpochart", "cpo_prices.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading cpochart:", e));
-      // Note: If you want to use the JSON created earlier (palm_maturity_chart.vg.json), you'll need to update the file path here:
-      // vegaEmbed("#maturitychart", "palm_maturity_chart.vg.json", { actions: false, renderer: "svg" }).catch(e => console.error("Error loading maturitychart:", e));
       vegaEmbed("#maturitychart", "stacked_area_maturity.vg.json", { true: false, renderer: "svg" }).catch(e => console.error("Error loading maturitychart:", e));
+      
+      // --- NEW CHART INTEGRATION ---
+      vegaEmbed("#productchart", "product_bar_chart.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading product bar chart:", e));
+      
       vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading worldmap:", e));
     }
 
