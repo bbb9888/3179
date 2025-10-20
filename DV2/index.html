@@ -220,7 +220,7 @@
     <div class="chart" id="maturitychart"></div>
   </div>
   
-  <!-- 📊 NEW: Product Export Dual Bar Chart -->
+  <!-- 📊 Product Export Dual Bar Chart -->
   <div class="chart-section">
     <div class="chart-text-container">
       <div class="section-title-wrapper">
@@ -233,6 +233,21 @@
       </ul>
     </div>
     <div class="chart" id="productchart"></div>
+  </div>
+
+  <!-- 🥧 NEW: Global Production Share Pie Chart -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Global Production Share</div>
+      </div>
+      <ul class="description-list">
+        <li>- Ranks the world's largest palm oil producers by volume.</li>
+        <li>- Visualizes the total market share captured by the top 10 countries.</li>
+      </ul>
+    </div>
+    <div class="chart" id="productionpie"></div>
   </div>
 
   <!-- 🌍 World Exports Map -->
@@ -265,9 +280,13 @@
       vegaEmbed("#cpochart", "cpo_prices.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading cpochart:", e));
       vegaEmbed("#maturitychart", "stacked_area_maturity.vg.json", { true: false, renderer: "svg" }).catch(e => console.error("Error loading maturitychart:", e));
       
-      // --- NEW CHART INTEGRATION ---
+      // --- Integrated Charts ---
       vegaEmbed("#productchart", "product_bar_chart.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading product bar chart:", e));
       
+      // --- NEW: Global Production Pie Chart ---
+      vegaEmbed("#productionpie", "world_production_idiom.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading production pie chart:", e));
+
+      // --- Last Chart ---
       vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading worldmap:", e));
     }
 

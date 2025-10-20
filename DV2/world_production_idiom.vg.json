@@ -1,0 +1,64 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "title": {
+    "text": "Global Palm Oil Production by Country (2023)",
+    "subtitle": "Share of total production (Metric Tons)",
+    "anchor": "middle",
+    "fontSize": 18
+  },
+  "width": 400,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/world_production.csv"
+  },
+  "transform": [
+    {"filter": "datum.Country != 'Rest of World'"},
+    {
+      "calculate": "toNumber(datum.Production_MT)",
+      "as": "Production_MT_num"
+    },
+    {
+      "window": [{"op": "rank", "as": "Rank"}],
+      "sort": [{"field": "Production_MT_num", "order": "descending"}]
+    },
+    {
+      "joinaggregate": [{"op": "sum", "field": "Production_MT_num", "as": "TotalProduction"}]
+    },
+    {
+      "calculate": "datum.Production_MT_num / datum.TotalProduction",
+      "as": "Share"
+    },
+    {
+      "calculate": "datum.Rank + '. ' + datum.Country",
+      "as": "RankedCountry"
+    }
+  ],
+  "mark": {"type": "arc", "outerRadius": 180, "stroke": "#fff", "strokeWidth": 1},
+  "encoding": {
+    "theta": {"field": "Production_MT_num", "type": "quantitative"},
+    "order": {"field": "Rank", "type": "ordinal", "sort": "ascending"},
+    "color": {
+      "field": "RankedCountry",
+      "type": "nominal",
+      "title": "Country (Ranked by Volume)",
+      "scale": {"scheme": "viridis"},
+      "sort": {"field": "Rank", "order": "ascending"}
+    },
+    "tooltip": [
+      {"field": "Rank", "title": "Rank"},
+      {"field": "Country", "type": "nominal"},
+      {"field": "Production_MT_num", "title": "Production (MT)", "format": ",.0f"},
+      {"field": "Share", "title": "Share of Total", "format": ".1%"}
+    ]
+  },
+  "view": {
+    "stroke": "transparent",
+    "fill": "transparent"
+  },
+  "config": {
+    "background": "transparent",
+    "legend": {"labelFontSize": 11, "titleFontSize": 12},
+    "title": {"fontSize": 18, "fontWeight": "bold"}
+  }
+}
