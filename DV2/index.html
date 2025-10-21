@@ -5,26 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Malaysia's Palm Oil Economy (2023)</title>
 
-  <!-- Vega libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
   <style>
-    /* 1. Global Reset & Typography */
     body {
       margin: 0;
       padding: 0;
-      /* Using Inter as the primary font for body text/data */
       font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: #f4f4f7; /* Light gray background */
+      background: #f4f4f7;
       color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     
-    /* 2. Page Title Section - Matching Image 2 Style */
     .header-container {
       width: 100%;
       max-width: 800px;
@@ -34,19 +30,16 @@
     }
 
     .main-title {
-      /* Applying a serif font to the main title */
       font-family: Georgia, 'Times New Roman', Times, serif; 
-      font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive sizing */
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
-      color: #00570c; /* Deep red color from the image */
+      color: #00570c;
       margin: 0;
       line-height: 1.1;
-      /* FIX: Force title onto a single line */
-      white-space: nowrap; 
     }
 
     .sub-title {
-      font-size: clamp(1rem, 2vw, 1.25rem); /* Responsive sizing */
+      font-size: clamp(1rem, 2vw, 1.25rem);
       font-weight: 400;
       color: #444;
       margin: 10px 0 25px 0;
@@ -54,25 +47,50 @@
     }
 
     .header-divider {
-      width: 80%;
-      max-width: 500px;
+      width: 100%;
+      max-width: 800px;
       height: 1px;
       background-color: #ccc;
       margin: 20px auto 40px auto;
     }
 
-    /* 3. Chart Section Layout - Centered and Clean */
+    .section-header {
+      width: 100%;
+      max-width: 800px;
+      text-align: left;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    
+    /* Section Separator Style (applied to the header container) */
+    .section-header.section-header-separator {
+        padding-top: 40px;
+        border-top: 1px solid #ddd;
+    }
+
+
+    .section-header h2 {
+      font-family: Georgia, 'Times New Roman', Times, serif; 
+      font-size: 32px;
+      font-weight: 700;
+      color: #00570c;
+      margin: 0;
+      border-bottom: 2px solid #00570c;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
     .chart-section {
       display: flex;
-      flex-direction: column; /* Stack text on top of chart */
+      flex-direction: column;
       align-items: center;
       width: 90%;
       max-width: 800px;
-      margin: 40px auto; /* Increased vertical margin */
-      padding: 0; /* Removed padding */
-      /* Removed box-shadow and background to make it look clean */
+      margin: 40px auto;
+      padding: 0;
     }
-
+    
     .chart-text-container {
       width: 100%;
       text-align: left;
@@ -85,17 +103,15 @@
       margin-bottom: 10px;
     }
 
-    /* Colored Rectangle Icon */
     .title-icon {
       width: 6px;
       height: 24px;
-      background-color: #00570c; /* Darker green accent color */
+      background-color: #00570c;
       margin-right: 12px;
-      flex-shrink: 0; /* Prevent it from shrinking */
+      flex-shrink: 0;
     }
 
     .section-title {
-      /* Applying serif font only to the section title */
       font-family: Georgia, 'Times New Roman', Times, serif; 
       font-size: 24px;
       font-weight: 700;
@@ -103,10 +119,9 @@
       margin: 0;
     }
 
-    /* Descriptive text styling */
     .description-list {
       list-style: none;
-      padding-left: 18px; /* Alignment with title block */
+      padding-left: 18px;
       margin-top: 15px;
       margin-bottom: 0;
     }
@@ -118,176 +133,317 @@
       color: #555;
     }
 
-    /* Crucial: Enforce max 10 words per line aesthetic */
-    .description-list li:first-child {
-        max-width: 450px; 
-    }
-    .description-list li:nth-child(2) {
-        max-width: 550px;
-    }
-    .description-list li:nth-child(3) {
-        max-width: 400px;
-    }
+    .description-list li:first-child { max-width: 450px; }
+    .description-list li:nth-child(2) { max-width: 550px; }
+    .description-list li:nth-child(3) { max-width: 400px; }
 
-    /* Chart container */
     .chart {
       width: 100%;
-      min-height: 350px; /* Ensure space for chart */
+      min-height: 350px;
     }
 
-    /* 4. Footer */
     .source-container {
-      margin: 40px 0 30px 0;
-      padding: 0 20px;
+      margin: 40px auto 30px auto;
+      padding: 20px 20px 0 20px; /* Adjust padding to make room for border and content */
+      width: 100%;
+      max-width: 800px; 
+      text-align: center;
+      /* NEW: Add border on top */
+      border-top: 1px solid #ddd; 
+    }
+    
+    /* Source content and links */
+    .source-content {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 10px;
+      line-height: 1.6;
       font-size: 10pt;
       color: #666;
-      text-align: center;
       width: 100%;
     }
+    
+    .source-label {
+      font-weight: bold;
+      margin-right: 5px;
+      white-space: nowrap;
+      color: #333;
+    }
+    
+    .source-links {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+        text-align: left;
+        max-width: 800px;
+    }
+    
+    .source-links a {
+        color: #00570c;
+        text-decoration: none;
+        padding: 0 5px; 
+        white-space: nowrap; 
+    }
+    .source-links a:hover {
+        text-decoration: underline;
+    }
+    .separator {
+        color: #666;
+    }
+    
+    /* UPDATED: Author/Date line styles to match size/color and ensure centering */
     .source-line {
       margin-top: 5px;
-      font-size: 9pt;
-      color: #999;
+      font-size: 10pt; 
+      color: #333; 
+      text-align: center; 
     }
+
+    /* SIDE-BY-SIDE LAYOUT STYLES */
+    .side-by-side-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      gap: 30px; 
+      margin-top: -15px;
+    }
+
+    .side-text-container {
+      width: 35%; 
+      padding-top: 15px; 
+      flex-shrink: 0; 
+    }
+
+    .side-text-container .description-list {
+        list-style: none;
+        padding-left: 0; 
+        margin-top: 0;
+    }
+
+    .side-text-container .description-list li {
+        font-size: 14px; 
+        color: #444; 
+        margin-bottom: 12px;
+        line-height: 1.5;
+        max-width: none;
+    }
+
+    .side-chart-container {
+      width: 65%; 
+      min-width: 0; 
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- 🌴 Page Title Section -->
   <div class="header-container">
     <div class="main-title">Malaysia's Palm Oil Economy</div>
     <div class="sub-title">Exploring Production, Prices, and Development in 2023</div>
   </div>
   <div class="header-divider"></div>
 
-  <!-- 🗺️ Malaysia Map -->
+  <div class="section-header">
+    <h2>Cultivation & Harvesting</h2>
+  </div>
+
   <div class="chart-section">
     <div class="chart-text-container">
       <div class="section-title-wrapper">
         <div class="title-icon"></div>
-        <div class="section-title">Palm Oil Distribution by State</div>
+        <div class="section-title">Malaysia's Palm Oil Distribution by State</div>
       </div>
       <ul class="description-list">
-        <li>- Shows the 2023 palm oil production by each Malaysian state</li>
-        <li>- Highlights key production regions in Sabah and Sarawak</li>
+        <li><b>Geographic Concentration:</b> Palm oil cultivation is concentrated in Sabah, Sarawak, Pahang, and Johor.</li>
+        <li><b>Sarawak's Lead:</b> Sarawak leads in production due to its large land area and agricultural focus.</li>
+        <li><b>Limiting Factors:</b> Other states produce little due to protected land, poor terrain, or urbanisation.</li>
       </ul>
     </div>
     <div class="chart" id="map"></div>
   </div>
 
-  <!-- 📈 Monthly Palm Oil Production Line Chart -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Palm Oil Maturity by State</div>
+      </div>
+    </div>
+    
+    <div class="side-by-side-layout">
+        <div class="side-text-container">
+            <ul class="description-list">
+                <li><b>Production Potential:</b> The ratio of palms ready for harvesting (Matured, typically 4+ years), to newly planted (Immature) indicates a state's current yield capacity and growth potential.</li>
+                <li><b>Sabah & Sarawak:</b> Sabah and Sarawak lead in total area and have high immature palm ratios, signaling future expansion.</li>
+                <li><b>Peninsular Malaysia:</b> States like Johor and Pahang have large matured areas, suggesting a more stable and mature industry.</li>
+            </ul>
+        </div>
+        <div class="side-chart-container">
+            <div class="chart" id="maturitychart"></div>
+        </div>
+    </div>
+  </div>
+
+
   <div class="chart-section">
     <div class="chart-text-container">
       <div class="section-title-wrapper">
         <div class="title-icon"></div>
         <div class="section-title">Monthly Palm Oil Production</div>
       </div>
-      <ul class="description-list">
-        <li>- Visualises seasonal trends and harvest cycles</li>
-        <li>- Shows production peaks during mid-year periods</li>
-      </ul>
     </div>
-    <div class="chart" id="linechart"></div>
+    
+    <div class="side-by-side-layout">
+        <div class="side-text-container">
+            <ul class="description-list">
+                <li><b>Seasonal Trends:</b> Production typically peaks in the middle of the year, usually between August and October, driven by favourable weather and the natural harvesting cycle.</li>
+                <li><b>Harvest Cycle:</b> Low production is common in the first quarter (Jan-Mar) due to the low-crop season following heavy rains.</li>
+                <li><b>External Factors:</b> Dry spells or heavy rains can disrupt harvest cycles and reduce output.</li>
+            </ul>
+        </div>
+        <div class="side-chart-container">
+            <div class="chart" id="linechart"></div>
+        </div>
+    </div>
   </div>
 
-  <!-- 🟢 CPO Price Line Chart -->
+  <div class="section-header section-header-separator">
+    <h2>Processing & Pricing</h2>
+  </div>
+
   <div class="chart-section">
     <div class="chart-text-container">
       <div class="section-title-wrapper">
         <div class="title-icon"></div>
-        <div class="section-title">Crude Palm Oil (CPO) Price Trends</div>
+        <div class="section-title">Crude Palm Oil (CPO) Monthly Price Comparison</div>
       </div>
-      <ul class="description-list">
-        <li>- Tracks CPO market price fluctuations throughout 2023</li>
-        <li>- Correlates price fluctuations with export demands</li>
-      </ul>
     </div>
-    <div class="chart" id="cpochart"></div>
-  </div>
-
-  <!-- 🌾 Plantation Maturity Stacked Bar Chart (Your latest request) -->
-  <div class="chart-section">
-    <div class="chart-text-container">
-      <div class="section-title-wrapper">
-        <div class="title-icon"></div>
-        <div class="section-title">Plantation Maturity by State</div>
-      </div>
-      <ul class="description-list">
-        <li>- Compares matured vs immatured oil palm areas</li>
-        <li>- Shows potential for future yield expansion</li>
-      </ul>
+    
+    <div class="side-by-side-layout">
+        <div class="side-text-container">
+            <ul class="description-list">
+                <li><b>2023 vs 2022:</b> CPO prices in 2023 showed a clear decline compared to 2022, which was driven by geopolitical events (like the war in Ukraine) causing a massive commodity price spike.</li>
+                <li><b>Price Stabilisation:</b> The market throughout 2023 was characterised by normalising global supply chains, keeping prices low and in a stable range (RM 3,500 - RM 4,200).</li>
+                <li><b>Demand Influence:</b> The slight mid-year dip in CPO prices (May-June) is often linked to stockpiles and slower demand from key importing countries like India and China.</li>
+                <li><b>Abbreviations:</b> RM: Ringgit Malaysia & MT: Metric Tonne</li>
+            </ul>
+        </div>
+        <div class="side-chart-container">
+            <div class="chart" id="cpochart"></div>
+        </div>
     </div>
-    <div class="chart" id="maturitychart"></div>
   </div>
   
-  <!-- 📊 Product Export Dual Bar Chart -->
   <div class="chart-section">
     <div class="chart-text-container">
       <div class="section-title-wrapper">
         <div class="title-icon"></div>
-        <div class="section-title">Product Export Volume vs. Revenue</div>
+        <div class="section-title">Industry Infrastructure Capacity</div>
       </div>
-      <ul class="description-list">
-        <li>- Directly compares export tonnage and revenue contribution per product.</li>
-        <li>- Highlights high-value vs. high-volume products within the economy.</li>
-      </ul>
     </div>
-    <div class="chart" id="productchart"></div>
+    
+    <div class="side-by-side-layout">
+        <div class="side-text-container">
+            <ul class="description-list">
+                <li><b>Scale of Operations:</b> Palm Oil Mills have by far the largest processing capacity, highlighting the high-volume nature of crude palm oil extraction from Fresh Fruit Bunches (FFB), compared to all other downstream sectors.</li>
+                <li><b>Refining Focus:</b> Refineries rank second in capacity, reinforcing Malaysia’s role as a key exporter of refined palm oil, beyond just crude products.</li>
+                <li><b>Processing Hierarchy:</b> Processing capacity follows a clear hierarchy, starting high at the milling stage and tapering off through kernel crushing, biodiesel, and oleochemical sectors, reflecting typical downstream scaling.</li>
+            </ul>
+        </div>
+        <div class="side-chart-container">
+            <div class="chart" id="capacitychart"></div>
+        </div>
+    </div>
   </div>
 
-  <!-- 🥧 NEW: Global Production Share Pie Chart -->
-  <div class="chart-section">
-    <div class="chart-text-container">
-      <div class="section-title-wrapper">
-        <div class="title-icon"></div>
-        <div class="section-title">Global Production Share</div>
-      </div>
-      <ul class="description-list">
-        <li>- Ranks the world's largest palm oil producers by volume.</li>
-        <li>- Visualizes the total market share captured by the top 10 countries.</li>
-      </ul>
-    </div>
-    <div class="chart" id="productionpie"></div>
+  <div class="section-header section-header-separator">
+    <h2>Global Trade & Market Share</h2>
   </div>
-
-  <!-- 🌍 World Exports Map -->
-  <div class="chart-section">
+  
+  <div class="chart-section"> 
     <div class="chart-text-container">
       <div class="section-title-wrapper">
         <div class="title-icon"></div>
-        <div class="section-title">Global Exports of Malaysian Palm Oil</div>
+        <div class="section-title">Global Exports of Malaysian Palm Oil (per capita MT)</div>
       </div>
       <ul class="description-list">
-        <li>- Shows major importers of Malaysian palm oil worldwide</li>
-        <li>- Highlights dominant trade relations in Asia and Europe</li>
+        <li><b>Major Markets:</b> Key importing regions are highly visible in Asia (especially India and China) and Europe (often due to mandatory biofuel blending policies).</li>
+        <li><b>Trade Importance:</b> The export volume highlights the reliance of major world economies on Malaysian palm oil for food, industrial, and energy needs.</li>
+        <li><b>Market Diversity:</b> While Asian giants dominate volume, a wide array of smaller countries ensures market stability across various continents.</li>
       </ul>
     </div>
     <div class="chart" id="worldmap"></div>
   </div>
 
-  <!-- Footer -->
-  <div class="source-container">
-    <div>Source: Malaysia Palm Oil Board (MPOB), Malaysia Palm Oil Council (MPOC)</div>
-    <div class="source-line">A visualisation by: Seow Le Onn 34076662</div>
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Palm Oil Export Volume vs Revenue</div>
+      </div>
+      <ul class="description-list">
+        <li><b>Value vs Volume:</b> Products like Crude Palm Oil (CPO) and Processed Palm Oil (PPO) represent the highest export volume, while more processed goods often contribute disproportionately high revenue per tonne.</li>
+        <li><b>Abbreviations:</b> PPO: Processed Palm Oil, CPO: Crude Palm Oil, PPKO: Processed Palm Kernel Oil, & CPKO: Crude Palm Kernel Oil.</li>
+      </ul>
+    </div>
+    <div class="chart" id="productchart"></div>
   </div>
 
-  <!-- Vega Embed -->
+  <div class="chart-section">
+    <div class="chart-text-container">
+      <div class="section-title-wrapper">
+        <div class="title-icon"></div>
+        <div class="section-title">Top 10 Global Palm Oil Producers (MT)</div>
+      </div>
+    </div>
+    
+    <div class="side-by-side-layout">
+        <div class="side-text-container">
+            <ul class="description-list">
+                <li><b>Two Asian Giants:</b> Indonesia and Malaysia supply over 80% of global palm oil, giving them major influence on prices and policies.</li>
+                <li><b>Market Concentration:</b> The chart visualises how production is heavily dominated by the top 10 countries, with little share left for other countries.</li>
+                <li><b>Competitive Landscape:</b> Countries like Thailand, Colombia, and Nigeria hold smaller shares but are gradually expanding their global presence.</li>
+            </ul>
+        </div>
+        <div class="side-chart-container">
+            <div class="chart" id="productionpie"></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="source-container">
+    <div class="source-content">
+        <div class="source-label">Sources:</div>
+        <div class="source-links">
+            <a href="https://www.mpoc.org.my/monthly-palm-oil-trade-statistics-2023/">Malaysia Palm Oil Council (MPOC)</a> 
+            <span class="separator">•</span>
+            <a href="https://bepi.mpob.gov.my/index.php/import/1138-production-of-crude-oil-palm-2023">Malaysia Palm Oil Board (MPOB) [1]</a> 
+            <span class="separator">•</span>
+            <a href="https://prestasisawit.mpob.gov.my/en/processing-sector">Malaysia Palm Oil Board (MPOB) [2]</a> 
+            <span class="separator">•</span>
+            <a href="https://wits.worldbank.org/trade/comtrade/en/country/MYS/year/2023/tradeflow/Exports/partner/ALL/product/151110">World Integrated Trade Solution (WITS)</a>
+            <span class="separator">•</span>
+            <a href="https://isp.org.my/v4/wp-content/uploads/2024/01/Malaysian-Palm-Oil-Industry.pdf">Malaysia Ministry of Plantation & Commodities</a>
+            <span class="separator">•</span>
+            <a href="https://www.fas.usda.gov/data/production/commodity/4243000">US Department of Agriculture (USDA)</a>
+        </div>
+    </div>
+    <div class="source-line">A Visualisation by: Seow Le Onn 34076662</div>
+    <div class="source-line" style="margin-top: 2px;">Last Updated: 21/10/2025</div>
+  </div>
+
   <script>
     function initializeCharts() {
-      // The assumption here is that all the Vega-Lite JSON files exist and are correctly linked.
       vegaEmbed("#map", "malaysia_map.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading map:", e));
       vegaEmbed("#linechart", "palm_oil_line.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading linechart:", e));
       vegaEmbed("#cpochart", "cpo_prices.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading cpochart:", e));
       vegaEmbed("#maturitychart", "stacked_area_maturity.vg.json", { true: false, renderer: "svg" }).catch(e => console.error("Error loading maturitychart:", e));
-      
-      // --- Integrated Charts ---
+      vegaEmbed("#capacitychart", "sector_production_status.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading capacity chart:", e));
       vegaEmbed("#productchart", "product_bar_chart.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading product bar chart:", e));
-      
-      // --- NEW: Global Production Pie Chart ---
-      vegaEmbed("#productionpie", "world_production_idiom.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading production pie chart:", e));
-
-      // --- Last Chart ---
       vegaEmbed("#worldmap", "world_exports_2023.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading worldmap:", e));
+      vegaEmbed("#productionpie", "world_production_idiom.vg.json", { actions: true, renderer: "svg" }).catch(e => console.error("Error loading production pie chart:", e));
     }
 
     document.addEventListener("DOMContentLoaded", initializeCharts);

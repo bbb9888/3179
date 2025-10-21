@@ -1,12 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 750,
-  "height": 400,
+  "width": 480,
+  "height": 300,
   "background": "transparent",
-  "title": {
-    "text": "2023 Monthly Palm Oil Production by State",
-    "anchor": "middle"
-  },
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -79,8 +75,49 @@
         }
       }
     },
+    
+    
     {
-      "description": "Vertical rule for October",
+      "description": "Vertical rule for July: Start of Harvesting Season",
+      "data": {"values": [{"MonthNum": 7}]},
+      "mark": {
+        "type": "rule",
+        "stroke": "#5A7D2C", 
+        "strokeDash": [4, 4],
+        "strokeWidth": 1.5,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "x": {"field": "MonthNum", "type": "quantitative"}
+      }
+    },
+    {
+      "description": "Dynamic flag annotation at July point (Harvest Start)",
+      "transform": [
+        {"filter": "datum.MonthNum == 7"},
+        {"filter": "datum.State == selected_state"}
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",         
+        "baseline": "middle",
+        "dx": -8,                 
+        "dy": 0,
+        "angle": 0,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#5A7D2C"
+      },
+      "encoding": {
+        "x": {"field": "MonthNum", "type": "quantitative"},
+        "y": {"field": "ProductionValue", "type": "quantitative"},
+        "text": {"value": "Start of Harvesting Season"}
+      }
+    },
+    
+    
+    {
+      "description": "Vertical rule for October: Peak Seasonal Yield",
       "data": {"values": [{"MonthNum": 10}]},
       "mark": {
         "type": "rule",
@@ -101,13 +138,13 @@
       ],
       "mark": {
         "type": "text",
-        "align": "left",
+        "align": "right",
         "baseline": "middle",
-        "dx": 8,
-        "dy": -5,
+        "dx": -8,
+        "dy": 0,
         "fontSize": 12,
         "fontWeight": "bold",
-        "color": "#B71C1C"
+        "color": "#7a5230"
       },
       "encoding": {
         "x": {"field": "MonthNum", "type": "quantitative"},
@@ -124,8 +161,8 @@
       "axis": {
         "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value - 1]",
-        "labelFontSize": 12,
-        "titleFontSize": 13
+        "labelFontSize": 9,
+        "titleFontSize": 11
       },
       "scale": {"zero": false, "nice": false}
     },
@@ -135,8 +172,8 @@
       "title": "Production (Tonnes)",
       "axis": {
         "grid": true,
-        "labelFontSize": 12,
-        "titleFontSize": 13,
+        "labelFontSize": 9,
+        "titleFontSize": 11,
         "format": ",.0f"
       },
       "scale": {"zero": true, "nice": true}

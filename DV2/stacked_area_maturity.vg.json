@@ -2,13 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A stacked bar chart comparing Matured vs. Immature CPO area by individual state, ranked by total area.",
   "background": "transparent",
-  "title": {
-    "text": "CPO Plantation Area: Matured vs. Immature Status",
-    "subtitle": "Area (Hectares) by State, excluding regional totals",
-    "anchor": "middle"
-  },
-  "width": 600,
-  "height": 450,
+  "width": 370,
+  "height": 320,
   "data": {
     "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/palm_maturity.csv"
   },
@@ -38,7 +33,7 @@
       "type": "nominal",
       "scale": {
         "domain": ["Matured", "Immature"],
-        "range": ["#059669", "#f97316"]
+        "range": ["#009E73", "#E69F00"]
       },
       "legend": {"title": "Plantation Status"}
     },

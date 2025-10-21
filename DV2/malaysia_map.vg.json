@@ -1,12 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 850,
-  "height": 400,
+  "width": 780,
+  "height": 300,
   "background": "transparent",
-  "title": {
-    "text": "2023 Palm Oil Production by State in Malaysia",
-    "anchor": "middle"
-  },
   "projection": {
     "type": "mercator",
     "center": [110.0, 3], 

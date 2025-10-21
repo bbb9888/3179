@@ -1,14 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "A layered line chart comparing CPO monthly prices for 2022 and 2023.",
+  "description": "A layered line chart comparing CPO monthly prices for 2022 and 2023, with area shading and month slider.",
   "background": "transparent",
-  "title": {
-    "text": "Crude Palm Oil (CPO) Monthly Price Comparison",
-    "subtitle": "Price (RM/MT) for 2022 vs. 2023",
-    "anchor": "middle"
-  },
-  "width": 600,
-  "height": 400,
+  "width": 416,
+  "height": 350,
   "data": {
     "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/cpo_monthly_prices.csv"
   },
@@ -20,41 +15,118 @@
     {
       "calculate": "substring(datum.Year, 0, 4)",
       "as": "Year"
+    },
+    {
+      "calculate": "indexof(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], datum.Month)",
+      "as": "MonthIndex"
+    },
+    {
+      "calculate": "3000", 
+      "as": "BasePrice"
+    },
+    {
+      "filter": "datum.MonthIndex <= monthSlider"
     }
   ],
-  "mark": {
-    "type": "line",
-    "point": {"filled": true, "size": 60},
-    "strokeWidth": 3
-  },
-  "encoding": {
-    "x": {
-      "field": "Month",
-      "type": "nominal",
-      "title": "Month",
-      "axis": {"labelAngle": 0},
-      "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    },
-    "y": {
-      "field": "Price",
-      "type": "quantitative",
-      "title": "Price (RM/MT)",
-      "axis": {"format": ",.0f"}
-    },
-    "color": {
-      "field": "Year",
-      "type": "nominal",
-      "title": "Year",
-      "scale": {
-        "domain": ["2022", "2023"],
-        "range": ["#ef4444", "#3b82f6"]
+  "params": [
+    {
+      "name": "monthSlider",
+      "value": 12,
+      "bind": {
+        "input": "range",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "name": "Month Slider: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "interpolate": "monotone",
+        "opacity": 0.25
+      },
+      "encoding": {
+        "x": {
+          "field": "MonthIndex",
+          "type": "quantitative",
+          "title": "Month",
+          "axis": {
+            "values": [0,1,2,3,4,5,6,7,8,9,10,11],
+            "labelAngle": 0,
+            "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value]"
+          }
+        },
+        "y": {
+          "field": "Price",
+          "type": "quantitative",
+          "title": "Price (Ringgit Malaysia / Metric Tonnes)",
+          "axis": {"format": ",.0f"},
+          "scale": {"domain": [3000, 7000]}
+        },
+        "y2": {"field": "BasePrice"},
+        "color": {
+          "field": "Year",
+          "type": "nominal",
+          "title": "Year",
+          "scale": {
+            "domain": ["2022", "2023"],
+            "range": ["#E69F00", "#009E73"]
+          }
+        },
+        "tooltip": [
+          {"field": "Year", "type": "nominal"},
+          {"field": "Month", "type": "nominal"},
+          {"field": "Price", "type": "quantitative", "format": ",.0f", "title": "Price (RM/MT)"}
+        ]
       }
     },
-    "tooltip": [
-      {"field": "Year", "type": "nominal"},
-      {"field": "Month", "type": "nominal"},
-      {"field": "Price", "type": "quantitative", "format": ",.0f", "title": "Price (RM/MT)"}
-    ]
-  },
-  "config": {"view": {"stroke": null}}
+    {
+      "mark": {
+        "type": "line",
+        "interpolate": "monotone",
+        "strokeWidth": 3,
+        "point": {"filled": true, "size": 60}
+      },
+      "encoding": {
+        "x": {
+          "field": "MonthIndex",
+          "type": "quantitative",
+          "title": "Month",
+          "axis": {
+            "values": [0,1,2,3,4,5,6,7,8,9,10,11],
+            "labelAngle": 0,
+            "labelExpr": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.value]"
+          }
+        },
+        "y": {
+          "field": "Price",
+          "type": "quantitative",
+          "title": "Price (Ringgit Malaysia / Metric Tonnes)",
+          "axis": {"format": ",.0f"},
+          "scale": {"domain": [3000, 7000]}
+        },
+        "color": {
+          "field": "Year",
+          "type": "nominal",
+          "title": "Year",
+          "scale": {
+            "domain": ["2022", "2023"],
+            "range": ["#7a5230", "#006400"]
+          }
+        },
+        "tooltip": [
+          {"field": "Year", "type": "nominal"},
+          {"field": "Month", "type": "nominal"},
+          {"field": "Price", "type": "quantitative", "format": ",.0f", "title": "Price (RM/MT)"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "legend": {"labelFontSize": 12, "titleFontSize": 12}
+  }
 }

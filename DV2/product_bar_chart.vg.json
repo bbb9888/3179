@@ -2,19 +2,14 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Two synchronized bar charts (Tonnes and RM Million) displayed side-by-side, sharing a common Y-axis for product comparison, resolving the scale difference issue.",
   "background": "transparent",
-  "title": {
-    "text": "Volume (Tonnes) vs. Revenue (RM Million) by Product",
-    "subtitle": "Analysis of Malaysian Palm Oil Product Exports (Two Independent Scales)",
-    "anchor": "middle"
-  },
   "data": {
     "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/palm_oil_product.csv"
   },
   "spacing": 20,
   "hconcat": [
     {
-      "width": 350,
-      "mark": {"type": "bar", "color": "#00570c"},
+      "width": 275,
+      "mark": {"type": "bar", "color": "#009E73"},
       "encoding": {
         "y": {
           "field": "PRODUCT",
@@ -36,7 +31,7 @@
     },
     {
       "width": 350,
-      "mark": {"type": "bar", "color": "#444444"},
+      "mark": {"type": "bar", "color": "#E69F00"},
       "encoding": {
         "y": {
           "field": "PRODUCT",

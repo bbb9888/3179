@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": 345,
+  "height": 380,
+  "data": {
+    "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/sector_production.csv"
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum['In Operation Capacity (Tonne)'])",
+      "as": "Capacity_Numeric"
+    }
+  ],
+  "mark": {
+    "type": "bar", 
+    "tooltip": true,
+    "color": "#E69F00"
+  },
+  "encoding": {
+    "y": {
+      "field": "Sector",
+      "type": "nominal",
+      "title": "Sector",
+      "sort": {"field": "Capacity_Numeric", "order": "descending"},
+      "axis": {"titleLimit": 200}
+    },
+    "x": {
+      "field": "Capacity_Numeric",
+      "type": "quantitative",
+      "title": "Capacity (Tonne)",
+      "axis": {"format": ",.0f"}
+    },
+    "tooltip": [
+      {"field": "Sector", "type": "nominal"},
+      {"field": "Number of Facilities", "title": "No. of Facilities", "format": ","},
+      {"field": "Capacity_Numeric", "title": "Capacity (Tonne)", "format": ",.0f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "bar": {"stroke": "white", "strokeWidth": 1}
+  }
+}
