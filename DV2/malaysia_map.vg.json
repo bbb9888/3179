@@ -40,7 +40,7 @@
           "lookup": "properties.shapeName",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/W9HW/palm_oil_production_2023.csv"
+              "url": "https://raw.githubusercontent.com/bbb9888/3179/refs/heads/main/DV2/palm_oil_production_2023.csv"
             },
             "key": "State",
             "fields": ["Total_Production", "Planted_Area", "Production_Density"]
